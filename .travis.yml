@@ -1,0 +1,14 @@
+language: rust
+rust: stable
+
+before_deploy:
+- cargo build --release
+- zip ./target/release/akua akua-$TRAVIS_TAG-$TRAVIS_OS_NAME.zip
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key: $GITHUB_TOKEN
+  file: akua-$TRAVIS_TAG-$TRAVIS_OS_NAME.zip
+  on:
+    tags: true

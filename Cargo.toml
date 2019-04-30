@@ -1,0 +1,10 @@
+[package]
+name = "akua"
+version = "0.0.0"
+authors = ["Pig Fang <g-plane@hotmail.com>"]
+edition = "2018"
+license = "MIT"
+
+[dependencies]
+clap = "2.33"
+git2 = "0.8"
