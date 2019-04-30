@@ -1,6 +1,6 @@
 [package]
 name = "akua"
-version = "0.0.0"
+version = "0.1.0"
 authors = ["Pig Fang <g-plane@hotmail.com>"]
 edition = "2018"
 license = "MIT"
