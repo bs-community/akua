@@ -17,7 +17,7 @@ pub fn branch(name: &str) -> Result<Requirements> {
     repo.set_head(reference.name().expect("Invalid branch name."))?;
     let new = repo.head()?;
 
-    pull(&repo, name)?;
+    pull(&repo, &format!("refs/remotes/origin/{}", name))?;
 
     generate_requirements(&repo, old, new)
 }
@@ -37,6 +37,24 @@ pub fn tag(name: &str) -> Result<Requirements> {
     generate_requirements(&repo, old, new)
 }
 
+pub fn default() -> Result<Requirements> {
+    let repo = open()?;
+    let old = repo.head()?;
+
+    if !old.is_branch() {
+        return Err(git2::Error::from_str("HEAD must point to a valid branch."));
+    }
+
+    pull(
+        &repo,
+        &old.name()
+            .expect("Failed to get current branch.")
+            .replace("heads", "remotes/origin"),
+    )?;
+    let new = repo.head()?;
+    generate_requirements(&repo, old, new)
+}
+
 fn open() -> Result<Repository> {
     let path = env::current_dir().unwrap_or(PathBuf::from("."));
     Repository::open(path)
@@ -46,7 +64,7 @@ fn pull(repo: &Repository, name: &str) -> Result<()> {
     let mut remote = repo.find_remote("origin")?;
     remote.fetch(&[name], None, None)?;
 
-    let oid = repo.refname_to_id(&format!("refs/remotes/origin/{}", name))?;
+    let oid = repo.refname_to_id(name)?;
     let object = repo.find_object(oid, None)?;
     repo.reset(&object, git2::ResetType::Hard, None)
 }

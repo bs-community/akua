@@ -22,6 +22,7 @@
 
 > 直接运行 `akua -h` 也可以获得帮助。
 
+- `akua` 不带任何参数，将在当前通道上拉取新的 commits。（只支持 fast 或 slow 通道）
 - `akua fast` 切换到 fast 通道，即 Blessing Skin 在 GitHub 上的 `dev` 分支。
 - `akua slow` 切换到 slow 通道，即 Blessing Skin 在 GitHub 上的 `master` 分支。
 - `akua stable <version>` 切换到某个稳定的、已发布的版本。`version` 即为您想要的版本。

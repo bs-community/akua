@@ -27,7 +27,7 @@ fn main() {
             let version = cmd.value_of("version").expect("You must specify version.");
             switch::tag(version)
         }
-        _ => unimplemented!(),
+        _ => switch::default(),
     };
     let result = result
         .map_err(|err| err.message().to_string())
