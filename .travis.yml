@@ -3,7 +3,7 @@ rust: stable
 
 before_deploy:
 - cargo build --release
-- zip -9 -r akua-$TRAVIS_TAG-$TRAVIS_OS_NAME.zip ./target/release/akua
+- zip -9 akua-$TRAVIS_TAG-$TRAVIS_OS_NAME.zip ./target/release/akua
 
 deploy:
   provider: releases
