@@ -43,7 +43,9 @@ pub fn install(requirements: Requirements) -> std::io::Result<()> {
     }
     if requirements.composer {
         println!("Installing PHP dependencies...");
-        Command::new("composer").arg("install").spawn()?;
+        Command::new("composer")
+            .args(vec!["install", "--no-dev"])
+            .spawn()?;
     }
 
     Ok(())
