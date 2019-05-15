@@ -37,7 +37,7 @@ pub fn install(requirements: Requirements) -> std::io::Result<()> {
         println!("Installing front end dependencies...");
         Command::new("yarn").spawn()?;
     }
-    if requirements.build {
+    if requirements.build || requirements.yarn {
         println!("Building front end assets...");
         Command::new("yarn").arg("build").spawn()?;
     }
